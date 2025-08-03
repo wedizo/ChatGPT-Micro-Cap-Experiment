@@ -17,12 +17,13 @@ This repository now includes a modern web dashboard that allows you to:
    npm run dev
    ```
 
-2. **Backend Setup (for AI Research):**
+2. **Backend Setup (Required for AI Research):**
    ```bash
    cd backend
    pip install -r requirements.txt
    cp .env.example .env
-   # Add your OpenAI API key to .env
+    # Edit .env and add your OpenAI API key:
+    # OPENAI_API_KEY=sk-your-actual-openai-api-key-here
    python app.py
    ```
 

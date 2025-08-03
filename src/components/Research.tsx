@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, TrendingUp, AlertTriangle, Target, Clock, Brain, FileText, Zap } from 'lucide-react';
 import { ResearchRequest, ResearchResult } from '../types';
+import { generateResearch } from '../api/research';
 
 export const Research: React.FC = () => {
   const [ticker, setTicker] = useState('');
@@ -20,59 +21,22 @@ export const Research: React.FC = () => {
     setError(null);
 
     try {
-      // Simulate API call to backend
       const request: ResearchRequest = {
         ticker: ticker.toUpperCase(),
         analysisType,
         timeframe,
       };
 
-      // Mock research result for demonstration
-      const mockResult: ResearchResult = {
-        id: Date.now().toString(),
-        ticker: ticker.toUpperCase(),
-        timestamp: new Date().toISOString(),
-        analysisType,
-        timeframe,
-        analysis: `Based on comprehensive analysis of ${ticker.toUpperCase()}, this micro-cap stock shows interesting potential. The company operates in a niche market with limited competition and has shown consistent revenue growth over the past quarters. Recent financial statements indicate improving margins and strong cash flow generation.
 
-Key technical indicators suggest the stock is currently trading near support levels, presenting a potential entry opportunity. The RSI indicates oversold conditions, while moving averages show a potential reversal pattern forming.
 
-Management has demonstrated strong execution capabilities and has a clear strategic roadmap for the next 12-18 months. Recent partnerships and product launches position the company well for continued growth.`,
-        recommendation: Math.random() > 0.5 ? 'buy' : 'hold',
-        confidence: Math.floor(Math.random() * 30) + 70,
-        keyPoints: [
-          'Strong revenue growth trajectory',
-          'Improving profit margins',
-          'Experienced management team',
-          'Unique market position',
-          'Recent positive catalysts'
-        ],
-        risks: [
-          'Small market cap volatility',
-          'Limited liquidity',
-          'Regulatory changes',
-          'Market sentiment shifts',
-          'Execution risk'
-        ],
-        catalysts: [
-          'Upcoming earnings report',
-          'Product launch scheduled',
-          'Potential partnership announcements',
-          'Market expansion plans',
-          'Industry tailwinds'
-        ],
-        targetPrice: Math.random() * 50 + 10,
-        stopLoss: Math.random() * 20 + 5,
-      };
 
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      // Make real API call to backend
+      const result = await generateResearch(request);
 
-      setResults(prev => [mockResult, ...prev]);
+      setResults(prev => [result, ...prev]);
       setTicker('');
     } catch (err) {
-      setError('Failed to generate research. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to generate research. Please try again.');
     } finally {
       setIsLoading(false);
     }
