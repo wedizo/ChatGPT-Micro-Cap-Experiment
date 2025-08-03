@@ -3,6 +3,7 @@ import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
 import { HoldingsTable } from './components/HoldingsTable';
 import { TradeHistory } from './components/TradeHistory';
+import { Research } from './components/Research';
 import { About } from './components/About';
 import { loadPortfolioData, loadTradeData } from './utils/csvLoader';
 import { processPerformanceData, getCurrentHoldings, calculatePortfolioMetrics } from './utils/dataParser';
@@ -104,6 +105,8 @@ function App() {
         return <HoldingsTable holdings={currentHoldings} />;
       case 'trades':
         return <TradeHistory trades={tradeData} />;
+      case 'research':
+        return <Research />;
       case 'about':
         return <About />;
       default:

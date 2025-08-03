@@ -1,6 +1,33 @@
 # ChatGPT Micro-Cap Experiment
 Welcome to the repo behind my 6-month live trading experiment where ChatGPT manages a real-money micro-cap portfolio.
 
+## 🚀 New: AI Research Dashboard
+
+This repository now includes a modern web dashboard that allows you to:
+- View real-time portfolio performance vs S&P 500
+- Analyze current holdings and trade history  
+- **Generate AI-powered research on micro-cap stocks**
+- Access comprehensive experiment documentation
+
+### Quick Start
+
+1. **Frontend Setup:**
+   ```bash
+   npm install
+   npm run dev
+   ```
+
+2. **Backend Setup (for AI Research):**
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   cp .env.example .env
+   # Add your OpenAI API key to .env
+   python app.py
+   ```
+
+3. **Access the dashboard at http://localhost:5173**
+
 # The Concept
 Everyday, I kept seeing the same ad about having an some A.I. pick undervalued stocks. It was obvious it was trying to get me to subscribe to some garbage, so I just rolled my eyes. 
 Then I started wondering, "How well would that actually work?".

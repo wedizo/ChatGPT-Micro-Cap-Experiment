@@ -54,3 +54,24 @@ export interface PortfolioMetrics {
   dayChange: number;
   dayChangePercent: number;
 }
+export interface ResearchRequest {
+  ticker: string;
+  analysisType: 'fundamental' | 'technical' | 'comprehensive';
+  timeframe: '1month' | '3months' | '6months' | '1year';
+}
+
+export interface ResearchResult {
+  id: string;
+  ticker: string;
+  timestamp: string;
+  analysisType: string;
+  timeframe: string;
+  analysis: string;
+  recommendation: 'buy' | 'sell' | 'hold';
+  confidence: number;
+  keyPoints: string[];
+  risks: string[];
+  catalysts: string[];
+  targetPrice?: number;
+  stopLoss?: number;
+}
