@@ -1,6 +1,6 @@
 import { ResearchRequest, ResearchResult } from '../types';
 
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
+const API_BASE_URL = import.meta.env.MODE === 'production' 
   ? '/api' 
   : 'http://localhost:8000/api';
 
