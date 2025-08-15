@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, TrendingUp, AlertTriangle, Target, Clock, Brain, FileText, Zap } from 'lucide-react';
+import { Search, TrendingUp, AlertTriangle, Target, Clock, Brain, FileText, Zap, Filter, ShoppingCart } from 'lucide-react';
 import { ResearchRequest, ResearchResult } from '../types';
 import { generateResearch } from '../api/research';
 
@@ -10,6 +10,7 @@ export const Research: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState<ResearchResult[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showBuyOnly, setShowBuyOnly] = useState(false);
 
   const handleResearch = async () => {
     if (!ticker.trim()) {
@@ -160,12 +161,56 @@ export const Research: React.FC = () => {
       {/* Research Results */}
       {results.length > 0 && (
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <FileText className="w-6 h-6" />
-            Research Results
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <FileText className="w-6 h-6" />
+              Research Results
+            </h2>
+            
+            {/* Filter Controls */}
+            <div className="flex items-center gap-4">
+              {/* BUY Recommendations Counter */}
+              <div className="bg-success-50 border border-success-200 rounded-lg px-4 py-2">
+                <div className="flex items-center gap-2">
+                  <ShoppingCart className="w-4 h-4 text-success-600" />
+                  <span className="text-sm font-medium text-success-800">
+                    {results.filter(r => r.recommendation.toLowerCase() === 'buy').length} BUY Recommendations
+                  </span>
+                </div>
+              </div>
+              
+              {/* Filter Toggle */}
+              <button
+                onClick={() => setShowBuyOnly(!showBuyOnly)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
+                  showBuyOnly 
+                    ? 'bg-success-100 border-success-300 text-success-700' 
+                    : 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                <Filter className="w-4 h-4" />
+                {showBuyOnly ? 'Show All' : 'Show BUY Only'}
+              </button>
+            </div>
+          </div>
 
-          {results.map((result) => (
+          {/* Results List */}
+          {(() => {
+            const filteredResults = showBuyOnly 
+              ? results.filter(r => r.recommendation.toLowerCase() === 'buy')
+              : results;
+            
+            if (filteredResults.length === 0 && showBuyOnly) {
+              return (
+                <div className="text-center py-12">
+                  <ShoppingCart className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No BUY Recommendations Yet</h3>
+                  <p className="text-gray-600">Generate some stock analyses to see AI buy recommendations here.</p>
+                </div>
+              );
+            }
+            
+            return filteredResults.map((result) => (
             <div key={result.id} className="card animate-slide-up">
               {/* Header */}
               <div className="flex items-start justify-between mb-6">
@@ -277,7 +322,8 @@ export const Research: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
+          ));
+          })()}
         </div>
       )}
 
