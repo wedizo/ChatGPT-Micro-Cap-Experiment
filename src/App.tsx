@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Navigation } from './components/Navigation';
 import { Dashboard } from './components/Dashboard';
 import { HoldingsTable } from './components/HoldingsTable';
@@ -11,7 +11,7 @@ import { PortfolioEntry, TradeEntry, PerformanceData, CurrentHolding, PortfolioM
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [portfolioData, setPortfolioData] = useState<PortfolioEntry[]>([]);
+  const [, setPortfolioData] = useState<PortfolioEntry[]>([]);
   const [tradeData, setTradeData] = useState<TradeEntry[]>([]);
   const [performanceData, setPerformanceData] = useState<PerformanceData[]>([]);
   const [currentHoldings, setCurrentHoldings] = useState<CurrentHolding[]>([]);

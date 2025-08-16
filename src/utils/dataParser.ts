@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { PortfolioEntry, TradeEntry, PerformanceData, CurrentHolding, PortfolioMetrics } from '../types';
+import { PortfolioEntry, PerformanceData, CurrentHolding, PortfolioMetrics } from '../types';
 
 export const parseCSV = <T>(csvText: string): T[] => {
   const result = Papa.parse(csvText, {
